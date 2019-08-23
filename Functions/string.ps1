@@ -19,8 +19,8 @@ $animal = 'pig'
 ...
 $sound = 'oink'
 
-&($MyString | Expand-String)
-&(Expand-String $MyString)
+$MyString | Expand-String
+Expand-String $MyString
 
 $animal and $sound aren't expanded until the last two lines.  This allows you to set up a string with variables to be expanded and delay expansion until the variables have the values you want.
 
@@ -62,7 +62,7 @@ function Expand-String
         }
 
         $code = "`$ExecutionContext.InvokeCommand.ExpandString($q$escapedString$q)"
-        [scriptblock]::create($code)
+        &([scriptblock]::create($code))
     }
 }
 
